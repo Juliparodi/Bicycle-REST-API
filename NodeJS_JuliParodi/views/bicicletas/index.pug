@@ -1,0 +1,17 @@
+extends ../layout 
+
+block content
+    table.table
+        thead
+            tr 
+                th(scope='col') #
+                th(scope='col') Colour 
+                th(scope='col') Model
+                th(scope='col') Location
+        tbody
+            each bici in bicis
+                tr 
+                    td(scope='row')=bici.id
+                    td=bici.colour 
+                    td=bici.model 
+                    td=bici.location 
