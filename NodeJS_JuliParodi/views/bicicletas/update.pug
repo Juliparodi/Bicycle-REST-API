@@ -1,0 +1,33 @@
+extends ../layout
+
+block content
+    a(href='/bicicletas') Come back 
+
+    br
+    br
+    br
+
+    h1 Updating Bici
+
+    br
+    br
+    br
+
+    form.inline(action=`/bicicletas/${bici.id}/update` method='post')
+        label(form='id') ID:
+        input#id(type='text' name='id' value=bici.id)
+        br
+        label(form='colour') COLOUR:
+        input#colour(type='text' name='colour' value=bici.colour)
+        br
+        label(form='model') MODEL:
+        input#model(type='text' name='model' value=bici.mdoel)
+        br
+        label(form='lat') LATITUDE:
+        input#latitude(type='text' name='latitude' value=bici.location[0])
+        br
+        label(form='lat') LONGITUDE:
+        input#longitude(type='text' name='longitude' value=bici.location[1])
+        br
+        br
+        input.btn(type='submit' value = 'OK')

@@ -1,6 +1,9 @@
 extends ../layout 
 
 block content
+    a(href='/bicicletas/create') Add new bicycle
+
+
     table.table
         thead
             tr 
@@ -8,6 +11,7 @@ block content
                 th(scope='col') Colour 
                 th(scope='col') Model
                 th(scope='col') Location
+                th(scope='col') 
         tbody
             each bici in bicis
                 tr 
@@ -15,3 +19,10 @@ block content
                     td=bici.colour 
                     td=bici.model 
                     td=bici.location 
+                    td
+                        a(href='bicicletas/' + bici.id + '/update') Edit
+                    td 
+                        form.inline(method='post' action='bicicletas/' + bici.id +'/delete')
+                            input(type='hidden' name='id' value=bici.id)
+                            button.link-button(type='submit' name = 'submit-param' values= 'submit_value' class='btn')
+                                = 'Eliminar'
