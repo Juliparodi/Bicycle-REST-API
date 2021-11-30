@@ -17,7 +17,7 @@ exports.bicycle_create_post = function(req, res){
 
 exports.bicycle_delete_post = function(req, res){
     Bicycle.deleteById(req.body.id);
-    res.redirect('/bicicletas');
+    res.status(204).send();
 };
 
 
