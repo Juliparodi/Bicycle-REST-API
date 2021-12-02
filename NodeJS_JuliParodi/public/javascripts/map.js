@@ -6,7 +6,7 @@ L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
 
 $.ajax({
     dataType = "json",
-    url: "api/bicicletas",
+    url: "/api/bicicletas",
     success: function(result){
         console.log(result);
         result.bicicletas.forEach(function(bici){
