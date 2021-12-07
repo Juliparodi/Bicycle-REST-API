@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 //constructor
-var Bicycle = function (id, colour, model, location){
+var Bicycle = function (id, colour, model, location) {
     this.id = id;
     this.colour = colour;
     this.model = model;
@@ -19,12 +19,25 @@ var BiciSchema = mongoose.Schema({
     }
 });
 
+/**
+ * toJSON implementation in order to delete id of MongoDB
+ */
+ BiciSchema.options.toJSON = {
+    transform: function(doc, ret, options) {
+        ret.id = ret._id;
+        delete ret.id;
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+    }
+};
+
 //insert into database
 BiciSchema.statics.createInstance = function (id, colour, model, location) {
     return new this({
         id_bicycle: id,
         colour: colour,
-        model:  model,
+        model: model,
         location: location
     });
 }
@@ -43,13 +56,14 @@ BiciSchema.statics.add = function (aBici, cb) {
 }
 
 BiciSchema.statics.findByIdBicycle = function (id, cb) {
-    return this.findOne({id_bicycle: id}, cb);
+    return this.findOne({ id_bicycle: id }, cb);
 }
 
 BiciSchema.statics.deleteByIdBicycle = function (aBici, cb) {
-    return this.deleteOne({id_bicycle: id}, cb);
+    return this.deleteOne({ id_bicycle: id }, cb);
 }
 
+module.exports = mongoose.model('Bicycle', BiciSchema);
 
 /*
 Bicycle.allBicis = [];
@@ -93,5 +107,3 @@ var b = new Bicycle(2, 'yellow', 'motocicle', [-34.6725579, -58.3544143]);
 Bicycle.add(a);
 Bicycle.add(b);
 */
-
-module.exports = mongoose.model('Bicycle', BiciSchema);
