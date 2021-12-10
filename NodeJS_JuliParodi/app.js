@@ -9,6 +9,8 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bicycleRouter = require('./routes/bicicletas');
 var bicycleRouter2 = require('./routes/api/bicicletas');
+var userRouter = require('./routes/api/user');
+
 var mongoose = require('mongoose');
 const userSchema = require('./database/userSchema.js')
 
@@ -31,6 +33,8 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/bicicletas', bicycleRouter);
 app.use('/api/bicicletas', bicycleRouter2);
+app.use('/api/user', userRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

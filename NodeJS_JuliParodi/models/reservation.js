@@ -20,4 +20,18 @@ reservationSchema.methods.ReservationDays = function(){
     return moment(this.from).diff(moment(this.to), 'days') + 1;
 }
 
+
+/**
+ * toJSON implementation in order to delete id of MongoDB
+ */
+ reservationSchema.options.toJSON = {
+    transform: function(doc, ret, options) {
+        ret.id = ret._id;
+        delete ret.id;
+        delete ret._id;
+        delete ret.__v;
+        return ret;
+    }
+};
+
 module.exports = mongoose.model('Reservation', reservationSchema);
