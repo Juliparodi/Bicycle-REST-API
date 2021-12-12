@@ -12,7 +12,7 @@ var Reservation = function (from, to, bicycle_id, user_id) {
 var reservationSchema = new Schema({
     from: Date,
     to: Date,
-    bicycle: {type: mongoose.Schema.Types.ObjectId, ref: 'Bicicyle'},
+    bicycle: {type: mongoose.Schema.Types.ObjectId, ref: 'Bicycle'},
     user: {type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
