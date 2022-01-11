@@ -6,6 +6,11 @@ var logger = require('morgan');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var nodemailer = require('nodemailer');
+const session = require('express-session');
+
+const Usuario = require('./models/user');
+const Token = require('./models/token');
+const jwt = require('jsonwebtoken');
 
 const connectionString = 'mongodb+srv://juliparodi:figura123@cluster0.ixvq8.mongodb.net/juliParodiDatabase?retryWrites=true&w=majority';
 
@@ -27,10 +32,12 @@ try {
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var bicycleRouter = require('./routes/bicicletas');
+var tokenRouter = require('./routes/token');
 var bicycleRouter2 = require('./routes/api/bicicletas');
 var userRouter = require('./routes/api/user');
 var reservationRouter = require('./routes/api/reservation');
 var nodeMailerRouter = require('./routes/api/nodemailer');
+
 
 
 var app = express();
@@ -47,8 +54,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/usuarios', usersRouter);
 app.use('/bicicletas', bicycleRouter);
+app.use('/token', tokenRouter);
 app.use('/api/bicicletas', bicycleRouter2);
 app.use('/api/user', userRouter);
 app.use('/api/reservation', reservationRouter);
