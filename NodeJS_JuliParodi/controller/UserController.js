@@ -31,8 +31,9 @@ module.exports = {
             res.render('usuarios/create', { errors: { confirm_password: { message: 'No conincide con el password ingresado' } }, usuario: new Usuario({ nombre: req.body.nombre, email: req.body.email }) });
             return;
         }
-
-        Usuario.create({ nombre: req.body.nombre, email: req.body.email, password: req.body.password }, function (err, nuevoUsuario) {
+        
+        var user = new Usuario({ nombre: req.body.nombre, email: req.body.email, password: req.body.password });
+        user.save(function (err, nuevoUsuario) {
             if (err) {
                 res.render('usuarios/create', { errors: err.errors, usuario: new Usuario({ nombre: req.body.nombre, email: req.body.email }) });
             } else {
