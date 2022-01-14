@@ -1,3 +1,5 @@
+require('dotenv').config();
+require('newrelic');gi
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -14,7 +16,19 @@ const Token = require('./models/token');
 const jwt = require('jsonwebtoken');
 
 
-let store = new session.MemoryStore
+let store;
+if (process.env.NODE_ENV === 'development') {
+  store = new session.MemoryStore
+} else {
+  store = new MongoDBStore({
+    uri: process.env.MONGO_URI,
+    collection: 'sessions'
+  });
+  store.on('error', function (error) {
+    assert.ifError(error);
+    assert.ok(false);
+  })
+}
 
 const connectionString = process.env.MONGO_URI;
 
@@ -145,8 +159,8 @@ app.use('/privacy_policy', function (req, res) {
   res.sendFile('public/privacy_policy.html');
 });
 
-app.use('/googlee3187483ce497af4', function (req, res) {
-  res.sendFile('public/googlee3187483ce497af4.html');
+app.use('/google646cdd5dfdf789ec', function (req, res) {
+  res.sendFile('public/google646cdd5dfdf789ec.html');
 });
 
 app.get('/auth/google',
