@@ -16,7 +16,7 @@ const jwt = require('jsonwebtoken');
 
 let store = new session.MemoryStore
 
-const connectionString = 'mongodb+srv://juliparodi:figura123@cluster0.ixvq8.mongodb.net/juliParodiDatabase?retryWrites=true&w=majority';
+const connectionString = process.env.MONGO_URI;
 
 try {
   // Connect to the MongoDB cluster
@@ -140,6 +140,27 @@ app.post('resetPassword', function (req, res) {
     });
   });
 });
+
+app.use('/privacy_policy', function (req, res) {
+  res.sendFile('public/privacy_policy.html');
+});
+
+app.use('/googlee3187483ce497af4', function (req, res) {
+  res.sendFile('public/googlee3187483ce497af4.html');
+});
+
+app.get('/auth/google',
+  passport.authenticate('google', {
+    scope: [
+      'https://www.googleapis.com/auth/plus.login',
+      'https://www.googleapis.com/auth/plus.profile.emails.read']
+  })
+);
+
+app.get('/auth/google/callback', passport.authenticate('google', {
+  successRedirect: '/',
+  failureRedirect: '/error'
+}));
 
 
 // catch 404 and forward to error handler
